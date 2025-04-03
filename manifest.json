@@ -1,0 +1,21 @@
+{
+    "name": "Аниме Калькулятор",
+    "short_name": "AnimeCalc",
+    "description": "Стильный калькулятор с темами Kawaii и Mecha",
+    "start_url": "index.html",
+    "display": "standalone",
+    "background_color": "#ff85a1",
+    "theme_color": "#ff85a1",
+    "icons": [
+      {
+        "src": "icon-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "icon-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }

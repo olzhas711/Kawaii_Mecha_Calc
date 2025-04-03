@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аниме Калькулятор</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.2/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      transition: background 0.5s ease;
+    }
+    
+    .kawaii-container, .mecha-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      font-family: 'Comic Neue', cursive;
+    }
+    
+    .kawaii-container {
+      background: linear-gradient(45deg, #ffb7c5, #ff85a1, #fbb1bd, #ff9cbb);
+    }
+    
+    .mecha-container {
+      background: linear-gradient(45deg, #1a2a6c, #2a3a7c, #3a4a8c, #2a3a7c);
+      font-family: 'Arial', sans-serif;
+    }
+    
+    .kawaii-card, .mecha-card {
+      padding: 1.5rem;
+      width: 320px;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
+      position: relative;
+      z-index: 1;
+      border: 4px solid #ffd1dc;
+      overflow: hidden;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .kawaii-card {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-color: #ffd1dc;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
+    }
+    
+    .mecha-card {
+      background-color: rgba(30, 40, 50, 0.9);
+      border-color: #2a3a7c;
+      border-image: linear-gradient(45deg, #1a2a6c, #00c8ff, #1a2a6c) 1;
+      box-shadow: 0 0 15px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 100, 255, 0.6);
+    }
+    
+    .kawaii-header, .mecha-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      font-family: 'Bangers', cursive;
+      letter-spacing: 1px;
+      animation: glow 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    
+    .kawaii-header {
+      color: #ff6b9d;
+      text-shadow: 2px 2px 0 #ffd1dc, 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    
+    .mecha-header {
+      color: #00c8ff;
+      text-shadow: 0 0 5px #00c8ff, 0 0 10px rgba(0, 200, 255, 0.5);
+    }
+    
+    .kawaii-display, .mecha-display {
+      text-align: right;
+      font-size: 1.5rem;
+      padding: 0.75rem;
+      border-radius: 0.8rem;
+      min-height: 3rem;
+      word-break: break-word;
+      margin-bottom: 0.5rem;
+      border: 2px solid #ff85a1;
+      box-shadow: inset 0 0 8px rgba(255, 105, 180, 0.3);
+      font-family: 'Fredoka One', cursive;
+      color: #ff4081;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .kawaii-display {
+      background-color: rgba(255, 240, 245, 0.8);
+      border-color: #ff85a1;
+    }
+    
+    .mecha-display {
+      background-color: rgba(40, 50, 60, 0.9);
+      border-color: #00c8ff;
+      box-shadow: inset 0 0 8px rgba(0, 200, 255, 0.3), 0 0 5px rgba(0, 200, 255, 0.5);
+      color: #00c8ff;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .kawaii-display::after, .mecha-display::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      animation: shine 4s infinite;
+    }
+    
+    .kawaii-display::after {
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
+    }
+    
+    .mecha-display::after {
+      background: linear-gradient(to right, transparent, rgba(0, 200, 255, 0.2), transparent);
+    }
+    
+    .kawaii-result, .mecha-result {
+      text-align: right;
+      font-size: 1.3rem;
+      padding: 0.5rem;
+      min-height: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: bold;
+    }
+    
+    .kawaii-result {
+      color: #ea4c89;
+    }
+    
+    .mecha-result {
+      color: #00c8ff;
+    }
+    
+    .kawaii-button, .mecha-button {
+      background: linear-gradient(to bottom, #ff9cbb, #ff85a1);
+      color: white;
+      border: none;
+      border-radius: 0.75rem;
+      font-size: 1.25rem;
+      padding: 0.75rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid #ffd1dc;
+      box-shadow: 0 3px 0 #ff6b9d, 0 5px 5px rgba(0, 0, 0, 0.15);
+      font-family: 'Comic Neue', cursive;
+      font-weight: bold;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .kawaii-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 0 #ff6b9d, 0 8px 8px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(to bottom, #ffb7c5, #ff9cbb);
+    }
+    
+    .kawaii-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 #ff6b9d, 0 2px 3px rgba(0, 0, 0, 0.15);
+    }
+    
+    .mecha-button {
+      background: linear-gradient(to bottom, #2a3a7c, #1a2a6c);
+      color: #00c8ff;
+      border: 1px solid #00c8ff;
+      box-shadow: 0 0 5px rgba(0, 200, 255, 0.5);
+      font-family: 'Courier New', monospace;
+    }
+    
+    .mecha-button:hover {
+      background: linear-gradient(to bottom, #3a4a8c, #2a3a7c);
+      box-shadow: 0 0 10px rgba(0, 200, 255, 0.8);
+    }
+    
+    .mecha-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 0 15px rgba(0, 200, 255, 1);
+    }
+    
+    .kawaii-button.operator, .mecha-button.operator {
+      background: linear-gradient(to bottom, #ff85a1, #ff4081);
+    }
+    
+    .kawaii-button.clear, .mecha-button.clear {
+      background: linear-gradient(to bottom, #ffb7c5, #ff85a1);
+      color: #ff4081;
+      font-weight: bolder;
+    }
+    
+    .kawaii-button.equals, .mecha-button.equals {
+      background: linear-gradient(to bottom, #ff4081, #d81b60);
+    }
+    
+    .kawaii-button.backspace, .mecha-button.backspace {
+      background: linear-gradient(to bottom, #ffb7c5, #ff85a1);
+      color: #ff4081;
+      font-weight: bolder;
+    }
+    
+    .kawaii-button.percent, .mecha-button.percent {
+      background: linear-gradient(to bottom, #ff85a1, #ff4081);
+    }
+    
+    .kawaii-icon, .mecha-icon {
+      margin-right: 0.5rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+    
+    .kawaii-star, .mecha-star {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      z-index: 10;
+      animation: rotate 3s linear infinite;
+    }
+    
+    .kawaii-star {
+      fill: #ff6b9d;
+    }
+    
+    .mecha-star {
+      fill: #00c8ff;
+      filter: hue-rotate(180deg) brightness(1.5);
+    }
+    
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 0.5rem;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes glow {
+      0% { text-shadow: 2px 2px 0 #ffd1dc, 0 0 10px rgba(255, 105, 180, 0); }
+      50% { text-shadow: 2px 2px 0 #ffd1dc, 0 0 15px rgba(255, 105, 180, 0.8); }
+      100% { text-shadow: 2px 2px 0 #ffd1dc, 0 0 10px rgba(255, 105, 180, 0); }
+    }
+    
+    @keyframes shine {
+      0% { left: -100%; }
+      20% { left: 100%; }
+      100% { left: 100%; }
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .character-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+    
+    .character-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .character-image {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+    
+    .character-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+    
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .kawaii-particle {
+      background-color: rgba(255, 182, 193, 0.6);
+    }
+    
+    .mecha-particle {
+      background-color: rgba(0, 200, 255, 0.6);
+    }
+    
+    #install-button {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      display: none;
+    }
+    
+    #install-button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+  <meta name="theme-color" content="#ff85a1">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <div id="root"></div>
+  <button id="install-button">Установить приложение</button>
+  
+  <script type="text/babel">
+    const KawaiiIcon = ({ onClick }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#ff4081" stroke="#ff4081" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="kawaii-icon" onClick={onClick}>
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <circle cx="9" cy="9" r="1" fill="#ff4081" />
+        <circle cx="15" cy="9" r="1" fill="#ff4081" />
+        <path d="M9 15c.83 1.5 2.17 1.5 3 1.5s2.17 0 3-1.5" strokeWidth="1.5" />
+        <line x1="8" x2="16" y1="6" y2="6" />
+      </svg>
+    );
+
+    const MechaIcon = ({ onClick }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#00c8ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mecha-icon" onClick={onClick}>
+        <rect x="4" y="2" width="16" height="20" rx="2" />
+        <line x1="8" x2="16" y1="6" y2="6" />
+        <line x1="8" x2="16" y1="10" y2="10" />
+        <line x1="8" x2="16" y1="14" y2="14" />
+        <line x1="8" x2="16" y1="18" y2="18" />
+      </svg>
+    );
+
+    const BackspaceIcon = ({ theme }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={theme === 'kawaii' ? "#ff4081" : "#00c8ff"} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+        <line x1="18" y1="9" x2="12" y2="15"></line>
+        <line x1="12" y1="9" x2="18" y2="15"></line>
+      </svg>
+    );
+
+    const StarIcon = ({ theme, onClick }) => (
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill={theme === 'kawaii' ? "#ff6b9d" : "#00c8ff"} className={theme === 'kawaii' ? "kawaii-star" : "mecha-star"} onClick={onClick}>
+        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+      </svg>
+    );
+
+    const kawaiiFemaleCharacter = "kawaii-character.png";
+    const mechaMaleCharacter = "mecha-character.png";
+
+    function AnimeCalculator() {
+      const [expression, setExpression] = React.useState("");
+      const [result, setResult] = React.useState("0");
+      const [theme, setTheme] = React.useState("kawaii");
+      const [showModal, setShowModal] = React.useState(false);
+      const [particles, setParticles] = React.useState([]);
+
+      React.useEffect(() => {
+        const createParticle = () => ({
+          id: Date.now() + Math.random(),
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          size: Math.random() * 5 + 2,
+          speedX: Math.random() * 2 - 1,
+          speedY: Math.random() * 2 - 1,
+          opacity: Math.random() * 0.7 + 0.3
+        });
+
+        const newParticles = Array.from({ length: 30 }, createParticle);
+        setParticles(newParticles);
+
+        let animationId;
+        const moveParticles = () => {
+          setParticles(prev => prev.map(p => {
+            let x = p.x + p.speedX, y = p.y + p.speedY;
+            if (x < 0 || x > window.innerWidth) p.speedX *= -1;
+            if (y < 0 || y > window.innerHeight) p.speedY *= -1;
+            return { ...p, x: Math.max(0, Math.min(x, window.innerWidth)), y: Math.max(0, Math.min(y, window.innerHeight)) };
+          }));
+          animationId = requestAnimationFrame(moveParticles);
+        };
+
+        moveParticles();
+        return () => cancelAnimationFrame(animationId);
+      }, []);
+
+      const toggleModal = () => setShowModal(!showModal);
+      const toggleTheme = () => setTheme(theme === 'kawaii' ? 'mecha' : 'kawaii');
+
+      const handleClick = (value) => {
+        if (value === "C") {
+          setExpression("");
+          setResult("0");
+          return;
+        }
+
+        if (value === "⌫") {
+          setExpression(prev => prev.slice(0, -1) || "0");
+          return;
+        }
+
+        if (value === "=") {
+          try {
+            const calculated = math.evaluate(expression || "0");
+            const newResult = calculated.toString();
+            setResult(newResult);
+            setExpression(newResult); // Сбрасываем выражение на результат
+          } catch (e) {
+            setResult("Ошибка");
+            setExpression("0");
+          }
+          return;
+        }
+
+        if (value === "%") {
+          try {
+            const match = expression.match(/(\d+(\.\d+)?)$/);
+            if (match) {
+              const num = parseFloat(match[0]);
+              const percent = num / 100;
+              setExpression(prev => prev.slice(0, -match[0].length) + percent);
+            } else {
+              setExpression(prev => prev + "/100");
+            }
+          } catch {
+            setResult("Ошибка");
+          }
+          return;
+        }
+
+        setExpression(prev => prev === "0" && value.match(/[0-9]/) ? value : prev + value);
+      };
+
+      const getButtonClass = (btn) => {
+        const prefix = theme === 'kawaii' ? 'kawaii' : 'mecha';
+        return `${prefix}-button ${btn === "C" ? 'clear' : btn === "=" ? 'equals' : btn === "⌫" ? 'backspace' : btn === "%" ? 'percent' : ["+", "-", "*", "/"].includes(btn) ? 'operator' : ''}`.trim();
+      };
+
+      const buttons = ["C", "⌫", "%", "/", "7", "8", "9", "*", "4", "5", "6", "-", "1", "2", "3", "+", "0", ".", "="];
+
+      return (
+        <div className={`${theme}-container`}>
+          {particles.map(p => (
+            <div key={p.id} className={`${theme}-particle particle`} style={{ left: p.x, top: p.y, width: p.size, height: p.size, opacity: p.opacity }} />
+          ))}
+          
+          <div className={`${theme}-card`}>
+            <div onClick={toggleModal}>
+              <StarIcon theme={theme} onClick={toggleModal} />
+            </div>
+            
+            <div className={`${theme}-header`} onClick={toggleTheme}>
+              {theme === 'kawaii' ? <KawaiiIcon onClick={toggleTheme} /> : <MechaIcon onClick={toggleTheme} />}
+              {theme === 'kawaii' ? 'Kawaii Калькулятор' : 'Mecha Калькулятор'}
+            </div>
+            
+            <div className={`${theme}-display`}>{expression || "0"}</div>
+            <div className={`${theme}-result`}> = {result}</div>
+            
+            <div className="button-grid">
+              {buttons.map(btn => (
+                <button key={btn} className={getButtonClass(btn)} onClick={() => handleClick(btn)} style={btn === "0" ? { gridColumn: "span 2" } : {}}>
+                  {btn === "⌫" ? <BackspaceIcon theme={theme} /> : btn}
+                </button>
+              ))}
+            </div>
+          </div>
+          
+          <div className={`character-modal ${showModal ? 'active' : ''}`} onClick={e => e.target === e.currentTarget && toggleModal()}>
+            <button className="character-close" onClick={toggleModal}>×</button>
+            <img className="character-image" src={theme === 'kawaii' ? kawaiiFemaleCharacter : mechaMaleCharacter} alt={theme === 'kawaii' ? "Аниме девушка" : "Аниме юноша"} />
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.render(<AnimeCalculator />, document.getElementById('root'));
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').then(reg => console.log('Service Worker registered')).catch(err => console.log('Service Worker failed', err));
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      document.getElementById('install-button').style.display = 'block';
+      e.prompt().then(() => e.userChoice.then(choice => console.log(choice.outcome)));
+    });
+  </script>
+</body>
+</html>
