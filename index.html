@@ -6,9 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Аниме Калькулятор</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.2/babel.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.2/babel.min.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
   <style>
     body {
@@ -37,99 +37,99 @@
     }
     
     .kawaii-card, .mecha-card {
-  padding: 1.5rem;
-  width: 320px;
-  border-radius: 1.5rem;
-  box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
-  position: relative;
-  z-index: 1;
-  border: 4px solid #ffd1dc;
-  overflow: hidden;
-  animation: fade 3s ease-in-out infinite; /* Замена float */
-}
+      padding: 1.5rem;
+      width: 320px;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
+      position: relative;
+      z-index: 1;
+      border: 4px solid #ffd1dc;
+      overflow: hidden;
+      animation: fade 3s ease-in-out infinite;
+    }
 
-.kawaii-card {
-  background-color: rgba(255, 255, 255, 0.85);
-  border-color: #ffd1dc;
-  box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
-}
-
-.mecha-card {
-  background-color: rgba(30, 40, 50, 0.9);
-  border-color: #2a3a7c;
-  border-image: linear-gradient(45deg, #1a2a6c, #00c8ff, #1a2a6c) 1;
-  box-shadow: 0 0 15px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 100, 255, 0.6);
-}
-
-.kawaii-header, .mecha-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  font-family: 'Bangers', cursive;
-  letter-spacing: 1px;
-  animation: fadeGlow 2s ease-in-out infinite; /* Замена glow */
-  cursor: pointer;
-}
-
-.kawaii-header {
-  color: #ff6b9d;
-  text-shadow: 2px 2px 0 #ffd1dc, 4px 4px 0 rgba(0,0,0,0.1);
-}
-
-.mecha-header {
-  color: #00c8ff;
-  text-shadow: 0 0 5px #00c8ff, 0 0 10px rgba(0, 200, 255, 0.5);
-}
-
-.kawaii-display, .mecha-display {
-  text-align: right;
-  font-size: 1.5rem;
-  padding: 0.75rem;
-  border-radius: 0.8rem;
-  min-height: 3rem;
-  word-break: break-word;
-  margin-bottom: 0.5rem;
-  border: 2px solid #ff85a1;
-  box-shadow: inset 0 0 8px rgba(255, 105, 180, 0.3);
-  font-family: 'Fredoka One', cursive;
-  color: #ff4081;
-  position: relative;
-  overflow: hidden;
-}
-
-.kawaii-display {
-  background-color: rgba(255, 240, 245, 0.8);
-  border-color: #ff85a1;
-}
-
-.mecha-display {
-  background-color: rgba(40, 50, 60, 0.9);
-  border-color: #00c8ff;
-  box-shadow: inset 0 0 8px rgba(0, 200, 255, 0.3), 0 0 5px rgba(0, 200, 255, 0.5);
-  color: #00c8ff;
-  font-family: 'Courier New', monospace;
-}
-
-.kawaii-display::after, .mecha-display::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  animation: shineTransform 4s infinite; /* Замена shine */
-}
-
-.kawaii-display::after {
-  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
-}
-
-.mecha-display::after {
-  background: linear-gradient(to right, transparent, rgba(0, 200, 255, 0.2), transparent);
-}
+    .kawaii-card {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-color: #ffd1dc;
+      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
+    }
+    
+    .mecha-card {
+      background-color: rgba(30, 40, 50, 0.9);
+      border-color: #2a3a7c;
+      border-image: linear-gradient(45deg, #1a2a6c, #00c8ff, #1a2a6c) 1;
+      box-shadow: 0 0 15px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 100, 255, 0.6);
+    }
+    
+    .kawaii-header, .mecha-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+      font-family: 'Bangers', cursive;
+      letter-spacing: 1px;
+      animation: fadeGlow 2s ease-in-out infinite;
+      cursor: pointer;
+    }
+    
+    .kawaii-header {
+      color: #ff6b9d;
+      text-shadow: 2px 2px 0 #ffd1dc, 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    
+    .mecha-header {
+      color: #00c8ff;
+      text-shadow: 0 0 5px #00c8ff, 0 0 10px rgba(0, 200, 255, 0.5);
+    }
+    
+    .kawaii-display, .mecha-display {
+      text-align: right;
+      font-size: 1.5rem;
+      padding: 0.75rem;
+      border-radius: 0.8rem;
+      min-height: 3rem;
+      word-break: break-word;
+      margin-bottom: 0.5rem;
+      border: 2px solid #ff85a1;
+      box-shadow: inset 0 0 8px rgba(255, 105, 180, 0.3);
+      font-family: 'Fredoka One', cursive;
+      color: #ff4081;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .kawaii-display {
+      background-color: rgba(255, 240, 245, 0.8);
+      border-color: #ff85a1;
+    }
+    
+    .mecha-display {
+      background-color: rgba(40, 50, 60, 0.9);
+      border-color: #00c8ff;
+      box-shadow: inset 0 0 8px rgba(0, 200, 255, 0.3), 0 0 5px rgba(0, 200, 255, 0.5);
+      color: #00c8ff;
+      font-family: 'Courier New', monospace;
+    }
+    
+    .kawaii-display::after, .mecha-display::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      animation: shineTransform 4s infinite;
+    }
+    
+    .kawaii-display::after {
+      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
+    }
+    
+    .mecha-display::after {
+      background: linear-gradient(to right, transparent, rgba(0, 200, 255, 0.2), transparent);
+    }
     
     .kawaii-result, .mecha-result {
       text-align: right;
@@ -220,7 +220,7 @@
     
     .kawaii-icon, .mecha-icon {
       margin-right: 0.5rem;
-      animation: bounce 2s infinite;
+      animation: fadeIcon 2s infinite; /* Оптимизировано */
       cursor: pointer;
     }
     
@@ -232,7 +232,7 @@
       height: 50px;
       cursor: pointer;
       z-index: 10;
-      animation: rotate 3s linear infinite;
+      animation: rotate 3s linear infinite; /* Оставляем, так как transform */
     }
     
     .kawaii-star {
@@ -242,6 +242,33 @@
     .mecha-star {
       fill: #00c8ff;
       filter: hue-rotate(180deg) brightness(1.5);
+    }
+
+    /* Новая кнопка ? */
+    .help-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: linear-gradient(to bottom, #ff85a1, #ff4081);
+      color: white;
+      font-size: 1.2rem;
+      font-family: 'Comic Neue', cursive;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 5px rgba(255, 105, 180, 0.5);
+    }
+
+    .help-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(255, 105, 180, 0.8);
     }
     
     .button-grid {
@@ -290,55 +317,88 @@
     }
 
     @keyframes fadeGlow {
-     0%, 100% { opacity: 1; }
-     50% { opacity: 0.9; }
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.9; }
     }
 
-@keyframes shineTransform {
-  0% { transform: translateX(-100%); }
-  20% { transform: translateX(100%); }
-  100% { transform: translateX(100%); }
-}
-    
-    .character-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  overflow: hidden;
-  margin: 0; /* Убираем возможные отступы */
-  padding: 0; /* Убираем возможные внутренние отступы */
-}
+    @keyframes fadeIcon {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.9; }
+    }
 
-.character-modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.character-image {
-  max-width: 90vw;
-  max-height: 90vh;
-  width: auto;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-  object-fit: contain;
-  position: static;
-  transform: none;
-  animation: none;
-  margin: 0 auto; /* Центрируем изображение */
-}
+    @keyframes shineTransform {
+      0% { transform: translateX(-100%); }
+      20% { transform: translateX(100%); }
+      100% { transform: translateX(100%); }
+    }
     
-    .character-close {
+    .character-modal, .help-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .character-modal.active, .help-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .character-image {
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+      object-fit: contain;
+      position: static;
+      transform: none;
+      animation: none;
+      margin: 0 auto;
+    }
+
+    .help-content {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow-y: auto;
+      font-family: 'Comic Neue', cursive;
+      color: #ff4081;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+    }
+
+    .help-content h2 {
+      margin-top: 0;
+      font-family: 'Bangers', cursive;
+      color: #ff6b9d;
+    }
+
+    .help-content p {
+      margin: 10px 0;
+    }
+
+    .help-content a {
+      color: #ff85a1;
+      text-decoration: underline;
+    }
+    
+    .character-close, .help-close {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -365,30 +425,36 @@
     }
     
     #install-button {
-  position: fixed;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 105, 180, 0.8);
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 25px;
-  cursor: pointer;
-  z-index: 1000;
-  font-weight: bold;
-  font-family: 'Comic Neue', cursive;
-  transition: all 0.3s ease;
-  display: none; /* Убедимся, что по умолчанию скрыто */
-}
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 105, 180, 0.8);
+      border: none;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 25px;
+      cursor: pointer;
+      z-index: 1000;
+      font-weight: bold;
+      font-family: 'Comic Neue', cursive;
+      transition: all 0.3s ease;
+      display: none;
+    }
 
-#install-button:hover {
-  background: rgba(255, 85, 161, 1);
-  transform: translateX(-50%) scale(1.05);
-}
+    #install-button:hover {
+      background: rgba(255, 85, 161, 1);
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    @media all and (display-mode: standalone) {
+      #install-button {
+        display: none !important;
+      }
+    }
   </style>
   <meta name="theme-color" content="#ff85a1">
-  <link rel="manifest" href="manifest.json">
+  <link rel="manifest" href="/Kawaii_Mecha_Calc/manifest.json">
 </head>
 <body>
   <div id="root"></div>
@@ -429,15 +495,26 @@
       </svg>
     );
 
-    const kawaiiFemaleCharacter = "/Kawaii_Mecha_Calc/kawaii-character.webp";
-    const mechaMaleCharacter = "/Kawaii_Mecha_Calc/mecha-character.webp";
+    // Массивы изображений для Kawaii и Mecha
+    const kawaiiCharacters = [
+      "/Kawaii_Mecha_Calc/kawaii-character1.webp",
+      "/Kawaii_Mecha_Calc/kawaii-character2.webp",
+      "/Kawaii_Mecha_Calc/kawaii-character3.webp"
+    ];
+    const mechaCharacters = [
+      "/Kawaii_Mecha_Calc/mecha-character1.webp",
+      "/Kawaii_Mecha_Calc/mecha-character2.webp",
+      "/Kawaii_Mecha_Calc/mecha-character3.webp"
+    ];
 
     function AnimeCalculator() {
       const [expression, setExpression] = React.useState("");
       const [result, setResult] = React.useState("0");
       const [theme, setTheme] = React.useState("kawaii");
       const [showModal, setShowModal] = React.useState(false);
+      const [showHelpModal, setShowHelpModal] = React.useState(false); // Новое состояние для справки
       const [particles, setParticles] = React.useState([]);
+      const [randomCharacter, setRandomCharacter] = React.useState(""); // Состояние для случайного изображения
 
       React.useEffect(() => {
         const createParticle = () => ({
@@ -468,7 +545,15 @@
         return () => cancelAnimationFrame(animationId);
       }, []);
 
-      const toggleModal = () => setShowModal(!showModal);
+      const toggleModal = () => {
+        const characters = theme === 'kawaii' ? kawaiiCharacters : mechaCharacters;
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        setRandomCharacter(characters[randomIndex]); // Выбираем случайное изображение
+        setShowModal(!showModal);
+      };
+
+      const toggleHelpModal = () => setShowHelpModal(!showHelpModal); // Функция для справки
+
       const toggleTheme = () => setTheme(theme === 'kawaii' ? 'mecha' : 'kawaii');
 
       const handleClick = (value) => {
@@ -488,7 +573,7 @@
             const calculated = math.evaluate(expression || "0");
             const newResult = calculated.toString();
             setResult(newResult);
-            setExpression(newResult); // Сбрасываем выражение на результат
+            setExpression(newResult);
           } catch (e) {
             setResult("Ошибка");
             setExpression("0");
@@ -532,6 +617,7 @@
             <div onClick={toggleModal}>
               <StarIcon theme={theme} onClick={toggleModal} />
             </div>
+            <button className="help-button" onClick={toggleHelpModal} aria-label="Открыть справку">?</button>
             
             <div className={`${theme}-header`} onClick={toggleTheme}>
               {theme === 'kawaii' ? <KawaiiIcon onClick={toggleTheme} /> : <MechaIcon onClick={toggleTheme} />}
@@ -552,8 +638,18 @@
           
           <div className={`character-modal ${showModal ? 'active' : ''}`} onClick={e => e.target === e.currentTarget && toggleModal()}>
             <button className="character-close" onClick={toggleModal} aria-label="Закрыть модальное окно">×</button>
-            <img className="character-image" src={theme === 'kawaii' ? kawaiiFemaleCharacter : mechaMaleCharacter} alt={theme === 'kawaii' ? "Аниме девушка" : "Аниме юноша"} width="400"
-            height="400"/>
+            <img className="character-image" src={randomCharacter} alt={theme === 'kawaii' ? "Аниме девушка" : "Аниме юноша"} width="400" height="400"/>
+          </div>
+
+          <div className={`help-modal ${showHelpModal ? 'active' : ''}`} onClick={e => e.target === e.currentTarget && toggleHelpModal()}>
+            <button className="help-close" onClick={toggleHelpModal} aria-label="Закрыть справку">×</button>
+            <div className="help-content">
+              <h2>Справка</h2>
+              <p>Это стильный аниме-калькулятор с темами Kawaii и Mecha!</p>
+              <p>Используй кнопки для вычислений. Кликни на иконку в заголовке, чтобы сменить тему.</p>
+              <p>Нажми на звёздочку, чтобы увидеть случайного персонажа.</p>
+              <p>Контакт: <a href="mailto:support@animecalc.com">support@animecalc.com</a></p>
+            </div>
           </div>
         </div>
       );
@@ -562,45 +658,46 @@
     ReactDOM.render(<AnimeCalculator />, document.getElementById('root'));
 
     if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/Kawaii_Mecha_Calc/service-worker.js')
-      .then(reg => console.log('Service Worker registered'))
-      .catch(err => console.log('Service Worker failed:', err));
-  });
-}
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/Kawaii_Mecha_Calc/service-worker.js')
+          .then(reg => console.log('Service Worker registered'))
+          .catch(err => console.log('Service Worker failed:', err));
+      });
+    }
 
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  // Проверяем, не запущено ли приложение как standalone
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  if (isStandalone) {
-    console.log('Приложение уже запущено как standalone, кнопка установки не показывается');
-    return; // Не показываем кнопку, если уже установлено
-  }
-
-  e.preventDefault();
-  deferredPrompt = e;
-  const installButton = document.getElementById('install-button');
-  installButton.style.display = 'block';
-
-  installButton.addEventListener('click', () => {
-    installButton.style.display = 'none';
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('Пользователь принял установку');
-      } else {
-        console.log('Пользователь отклонил установку');
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+      if (isStandalone) {
+        console.log('Приложение уже запущено как standalone, кнопка установки не показывается');
+        return;
       }
-      deferredPrompt = null;
-    });
-  }, { once: true }); // Слушатель срабатывает только один раз
-});
 
-// Дополнительная проверка при загрузке
-window.addEventListener('load', () => {
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
-  if (isStandalone) {
-    document.getElementById('install-button').style.display = 'none';
-  }
-});
+      e.preventDefault();
+      deferredPrompt = e;
+      const installButton = document.getElementById('install-button');
+      installButton.style.display = 'block';
+
+      installButton.addEventListener('click', () => {
+        installButton.style.display = 'none';
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Пользователь принял установку');
+          } else {
+            console.log('Пользователь отклонил установку');
+          }
+          deferredPrompt = null;
+        });
+      }, { once: true });
+    });
+
+    window.addEventListener('load', () => {
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+      if (isStandalone) {
+        document.getElementById('install-button').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

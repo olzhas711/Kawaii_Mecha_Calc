@@ -1,18 +1,20 @@
 const CACHE_NAME = 'anime-calc-v1';
 const urlsToCache = [
-  '/Kawaii_Mecha_Calc/',                  // Главная страница
-  '/Kawaii_Mecha_Calc/index.html',        // Основной HTML-файл
-  '/Kawaii_Mecha_Calc/manifest.json',     // Манифест PWA
-  '/Kawaii_Mecha_Calc/kawaii-character.png', // Изображение Kawaii
-  '/Kawaii_Mecha_Calc/mecha-character.png',   // Изображение Mecha 
-  '/Kawaii_Mecha_Calc/service-worker.js', // Сам Service Worker
+  '/Kawaii_Mecha_Calc/',
+  '/Kawaii_Mecha_Calc/index.html',
+  '/Kawaii_Mecha_Calc/manifest.json',
+  '/Kawaii_Mecha_Calc/kawaii-character1.webp',
+  '/Kawaii_Mecha_Calc/kawaii-character2.webp',
+  '/Kawaii_Mecha_Calc/kawaii-character3.webp',
+  '/Kawaii_Mecha_Calc/mecha-character1.webp',
+  '/Kawaii_Mecha_Calc/mecha-character2.webp',
+  '/Kawaii_Mecha_Calc/mecha-character3.webp',
+  '/Kawaii_Mecha_Calc/service-worker.js',
   'https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.2/babel.min.js',
-  'https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Fredoka+One&display=swap',
-  '/Kawaii_Mecha_Calc/icon-192.png',
-  '/Kawaii_Mecha_Calc/icon-512.png'
+  'https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Fredoka+One&display=swap'
 ];
 
 self.addEventListener('install', event => {
