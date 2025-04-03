@@ -4,7 +4,7 @@ const urlsToCache = [
   '/Kawaii_Mecha_Calc/index.html',        // Основной HTML-файл
   '/Kawaii_Mecha_Calc/manifest.json',     // Манифест PWA
   '/Kawaii_Mecha_Calc/kawaii-character.png', // Изображение Kawaii
-  '/Kawaii_Mecha_Calc/mecha-character.png',   // Изображение Mecha (если есть)
+  '/Kawaii_Mecha_Calc/mecha-character.png',   // Изображение Mecha 
   '/Kawaii_Mecha_Calc/service-worker.js', // Сам Service Worker
   'https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js',

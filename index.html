@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Аниме Калькулятор</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.2/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.21.2/babel.min.js" defer></script>
   <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@700&family=Fredoka+One&display=swap" rel="stylesheet">
   <style>
     body {
@@ -285,32 +285,35 @@
     }
     
     .character-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-    }
-    
-    .character-modal.active {
-      opacity: 1;
-      pointer-events: all;
-    }
-    
-    .character-image {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 10px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  overflow: auto; /* Добавляем прокрутку, если изображение всё же большое */
+}
+
+.character-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.character-image {
+  max-width: 100%; /* Уменьшаем до ширины экрана */
+  max-height: 100vh; /* Ограничиваем высоту видимой области экрана */
+  width: auto; /* Сохраняем пропорции */
+  height: auto; /* Сохраняем пропорции */
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+}
     
     .character-close {
       position: absolute;
@@ -340,26 +343,25 @@
     
     #install-button {
       position: fixed;
-      top: 20px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 255, 255, 0.2);
       border: none;
       color: white;
-      padding: 10px 20px;
-      border-radius: 50px;
+      padding: 8px 16px;
+      border-radius: 25px;
       cursor: pointer;
-      backdrop-filter: blur(5px);
-      z-index: 100;
-      font-weight: bold;
-      transition: all 0.3s;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-      display: none;
-    }
-    
-    #install-button:hover {
-      background: rgba(255, 255, 255, 0.3);
-    }
+      z-index: 1000; /* Увеличиваем z-index */
+  font-weight: bold;
+  font-family: 'Comic Neue', cursive;
+  transition: all 0.3s ease;
+}
+
+#install-button:hover {
+  background: rgba(255, 85, 161, 1);
+  transform: translateX(-50%) scale(1.05);
+}
   </style>
   <meta name="theme-color" content="#ff85a1">
   <link rel="manifest" href="manifest.json">
@@ -403,8 +405,8 @@
       </svg>
     );
 
-    const kawaiiFemaleCharacter = "kawaii-character.png";
-    const mechaMaleCharacter = "mecha-character.png";
+    const kawaiiFemaleCharacter = "/Kawaii_Mecha_Calc/kawaii-character.webp";
+    const mechaMaleCharacter = "/Kawaii_Mecha_Calc/mecha-character.webp";
 
     function AnimeCalculator() {
       const [expression, setExpression] = React.useState("");
@@ -526,7 +528,8 @@
           
           <div className={`character-modal ${showModal ? 'active' : ''}`} onClick={e => e.target === e.currentTarget && toggleModal()}>
             <button className="character-close" onClick={toggleModal}>×</button>
-            <img className="character-image" src={theme === 'kawaii' ? kawaiiFemaleCharacter : mechaMaleCharacter} alt={theme === 'kawaii' ? "Аниме девушка" : "Аниме юноша"} />
+            <img className="character-image" src={theme === 'kawaii' ? kawaiiFemaleCharacter : mechaMaleCharacter} alt={theme === 'kawaii' ? "Аниме девушка" : "Аниме юноша"} width="400"
+            height="400"/>
           </div>
         </div>
       );
@@ -540,11 +543,23 @@
       });
     }
 
-    window.addEventListener('beforeinstallprompt', e => {
-      e.preventDefault();
-      document.getElementById('install-button').style.display = 'block';
-      e.prompt().then(() => e.userChoice.then(choice => console.log(choice.outcome)));
+    let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e; // Сохраняем событие для дальнейшего использования
+  const installButton = document.getElementById('install-button');
+  installButton.style.display = 'block'; // Показываем кнопку
+
+  installButton.addEventListener('click', () => {
+    installButton.style.display = 'none'; // Скрываем кнопку после клика
+    deferredPrompt.prompt(); // Показываем диалог установки
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Пользователь принял установку');
+      } else {
+        console.log('Пользователь отклонил установку');
+      }
+      deferredPrompt = null; // Сбрасываем событие
     });
-  </script>
-</body>
-</html>
+  });
+});
