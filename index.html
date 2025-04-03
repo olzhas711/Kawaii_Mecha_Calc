@@ -37,100 +37,99 @@
     }
     
     .kawaii-card, .mecha-card {
-      padding: 1.5rem;
-      width: 320px;
-      border-radius: 1.5rem;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
-      position: relative;
-      z-index: 1;
-      border: 4px solid #ffd1dc;
-      overflow: hidden;
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    .kawaii-card {
-      background-color: rgba(255, 255, 255, 0.85);
-      border-color: #ffd1dc;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
-    }
-    
-    .mecha-card {
-      background-color: rgba(30, 40, 50, 0.9);
-      border-color: #2a3a7c;
-      border-image: linear-gradient(45deg, #1a2a6c, #00c8ff, #1a2a6c) 1;
-      box-shadow: 0 0 15px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 100, 255, 0.6);
-    }
-    
-    .kawaii-header, .mecha-header {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 1.8rem;
-      font-weight: bold;
-      margin-bottom: 1.5rem;
-      font-family: 'Bangers', cursive;
-      letter-spacing: 1px;
-      animation: glow 2s ease-in-out infinite;
-      cursor: pointer;
-    }
-    
-    .kawaii-header {
-      color: #ff6b9d;
-      text-shadow: 2px 2px 0 #ffd1dc, 4px 4px 0 rgba(0,0,0,0.1);
-    }
-    
-    .mecha-header {
-      color: #00c8ff;
-      text-shadow: 0 0 5px #00c8ff, 0 0 10px rgba(0, 200, 255, 0.5);
-    }
-    
-    .kawaii-display, .mecha-display {
-      text-align: right;
-      font-size: 1.5rem;
-      padding: 0.75rem;
-      border-radius: 0.8rem;
-      min-height: 3rem;
-      word-break: break-word;
-      margin-bottom: 0.5rem;
-      border: 2px solid #ff85a1;
-      box-shadow: inset 0 0 8px rgba(255, 105, 180, 0.3);
-      font-family: 'Fredoka One', cursive;
-      color: #ff4081;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .kawaii-display {
-      background-color: rgba(255, 240, 245, 0.8);
-      border-color: #ff85a1;
-    }
-    
-    .mecha-display {
-      background-color: rgba(40, 50, 60, 0.9);
-      border-color: #00c8ff;
-      box-shadow: inset 0 0 8px rgba(0, 200, 255, 0.3), 0 0 5px rgba(0, 200, 255, 0.5);
-      color: #00c8ff;
-      font-family: 'Courier New', monospace;
-    }
-    
-    .kawaii-display::after, .mecha-display::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      animation: shine 4s infinite;
-    }
-    
-    .kawaii-display::after {
-      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
-    }
-    
-    .mecha-display::after {
-      background: linear-gradient(to right, transparent, rgba(0, 200, 255, 0.2), transparent);
-    }
+  padding: 1.5rem;
+  width: 320px;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
+  position: relative;
+  z-index: 1;
+  border: 4px solid #ffd1dc;
+  overflow: hidden;
+  animation: fade 3s ease-in-out infinite; /* Замена float */
+}
+
+.kawaii-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-color: #ffd1dc;
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.8), 0 0 30px rgba(255, 182, 193, 0.6);
+}
+
+.mecha-card {
+  background-color: rgba(30, 40, 50, 0.9);
+  border-color: #2a3a7c;
+  border-image: linear-gradient(45deg, #1a2a6c, #00c8ff, #1a2a6c) 1;
+  box-shadow: 0 0 15px rgba(0, 200, 255, 0.8), 0 0 30px rgba(0, 100, 255, 0.6);
+}
+
+.kawaii-header, .mecha-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 1px;
+  animation: fadeGlow 2s ease-in-out infinite; /* Замена glow */
+  cursor: pointer;
+}
+
+.kawaii-header {
+  color: #ff6b9d;
+  text-shadow: 2px 2px 0 #ffd1dc, 4px 4px 0 rgba(0,0,0,0.1);
+}
+
+.mecha-header {
+  color: #00c8ff;
+  text-shadow: 0 0 5px #00c8ff, 0 0 10px rgba(0, 200, 255, 0.5);
+}
+
+.kawaii-display, .mecha-display {
+  text-align: right;
+  font-size: 1.5rem;
+  padding: 0.75rem;
+  border-radius: 0.8rem;
+  min-height: 3rem;
+  word-break: break-word;
+  margin-bottom: 0.5rem;
+  border: 2px solid #ff85a1;
+  box-shadow: inset 0 0 8px rgba(255, 105, 180, 0.3);
+  font-family: 'Fredoka One', cursive;
+  color: #ff4081;
+  position: relative;
+  overflow: hidden;
+}
+
+.kawaii-display {
+  background-color: rgba(255, 240, 245, 0.8);
+  border-color: #ff85a1;
+}
+
+.mecha-display {
+  background-color: rgba(40, 50, 60, 0.9);
+  border-color: #00c8ff;
+  box-shadow: inset 0 0 8px rgba(0, 200, 255, 0.3), 0 0 5px rgba(0, 200, 255, 0.5);
+  color: #00c8ff;
+  font-family: 'Courier New', monospace;
+}
+
+.kawaii-display::after, .mecha-display::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  animation: shineTransform 4s infinite; /* Замена shine */
+}
+
+.kawaii-display::after {
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
+}
+
+.mecha-display::after {
+  background: linear-gradient(to right, transparent, rgba(0, 200, 255, 0.2), transparent);
+}
     
     .kawaii-result, .mecha-result {
       text-align: right;
@@ -284,6 +283,22 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+
+    @keyframes fade {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.95; }
+    }
+
+    @keyframes fadeGlow {
+     0%, 100% { opacity: 1; }
+     50% { opacity: 0.9; }
+    }
+
+@keyframes shineTransform {
+  0% { transform: translateX(-100%); }
+  20% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
     
     .character-modal {
   position: fixed;
