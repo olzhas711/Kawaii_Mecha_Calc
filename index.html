@@ -350,20 +350,21 @@
     }
     
     #install-button {
-      position: fixed;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.2);
-      border: none;
-      color: white;
-      padding: 8px 16px;
-      border-radius: 25px;
-      cursor: pointer;
-      z-index: 1000; /* Увеличиваем z-index */
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 105, 180, 0.8);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  z-index: 1000;
   font-weight: bold;
   font-family: 'Comic Neue', cursive;
   transition: all 0.3s ease;
+  display: none; /* Убедимся, что по умолчанию скрыто */
 }
 
 #install-button:hover {
@@ -553,23 +554,38 @@
   });
 }
 
-    let deferredPrompt;
+let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
+  // Проверяем, не запущено ли приложение как standalone
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (isStandalone) {
+    console.log('Приложение уже запущено как standalone, кнопка установки не показывается');
+    return; // Не показываем кнопку, если уже установлено
+  }
+
   e.preventDefault();
-  deferredPrompt = e; // Сохраняем событие для дальнейшего использования
+  deferredPrompt = e;
   const installButton = document.getElementById('install-button');
-  installButton.style.display = 'block'; // Показываем кнопку
+  installButton.style.display = 'block';
 
   installButton.addEventListener('click', () => {
-    installButton.style.display = 'none'; // Скрываем кнопку после клика
-    deferredPrompt.prompt(); // Показываем диалог установки
+    installButton.style.display = 'none';
+    deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('Пользователь принял установку');
       } else {
         console.log('Пользователь отклонил установку');
       }
-      deferredPrompt = null; // Сбрасываем событие
+      deferredPrompt = null;
     });
-  });
+  }, { once: true }); // Слушатель срабатывает только один раз
+});
+
+// Дополнительная проверка при загрузке
+window.addEventListener('load', () => {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+  if (isStandalone) {
+    document.getElementById('install-button').style.display = 'none';
+  }
 });
