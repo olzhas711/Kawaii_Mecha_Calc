@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <meta name="description" content="Стильный аниме-калькулятор с темами Kawaii и Mecha. Установи как PWA и считай с удовольствием!">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Аниме Калькулятор</title>
@@ -288,8 +289,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
@@ -297,8 +298,10 @@
   z-index: 1000;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s;
-  overflow: auto; /* Добавляем прокрутку, если изображение всё же большое */
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+  margin: 0; /* Убираем возможные отступы */
+  padding: 0; /* Убираем возможные внутренние отступы */
 }
 
 .character-modal.active {
@@ -307,12 +310,17 @@
 }
 
 .character-image {
-  max-width: 100%; /* Уменьшаем до ширины экрана */
-  max-height: 100vh; /* Ограничиваем высоту видимой области экрана */
-  width: auto; /* Сохраняем пропорции */
-  height: auto; /* Сохраняем пропорции */
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
   border-radius: 10px;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+  object-fit: contain;
+  position: static;
+  transform: none;
+  animation: none;
+  margin: 0 auto; /* Центрируем изображение */
 }
     
     .character-close {
@@ -368,8 +376,8 @@
 </head>
 <body>
   <div id="root"></div>
-  <button id="install-button">Установить приложение</button>
-  
+  <button id="install-button" aria-label="Установить приложение">Установить приложение</button>
+
   <script type="text/babel">
     const KawaiiIcon = ({ onClick }) => (
       <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="#ff4081" stroke="#ff4081" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="kawaii-icon" onClick={onClick}>
@@ -527,7 +535,7 @@
           </div>
           
           <div className={`character-modal ${showModal ? 'active' : ''}`} onClick={e => e.target === e.currentTarget && toggleModal()}>
-            <button className="character-close" onClick={toggleModal}>×</button>
+            <button className="character-close" onClick={toggleModal} aria-label="Закрыть модальное окно">×</button>
             <img className="character-image" src={theme === 'kawaii' ? kawaiiFemaleCharacter : mechaMaleCharacter} alt={theme === 'kawaii' ? "Аниме девушка" : "Аниме юноша"} width="400"
             height="400"/>
           </div>
@@ -538,10 +546,12 @@
     ReactDOM.render(<AnimeCalculator />, document.getElementById('root'));
 
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js').then(reg => console.log('Service Worker registered')).catch(err => console.log('Service Worker failed', err));
-      });
-    }
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/Kawaii_Mecha_Calc/service-worker.js')
+      .then(reg => console.log('Service Worker registered'))
+      .catch(err => console.log('Service Worker failed:', err));
+  });
+}
 
     let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
